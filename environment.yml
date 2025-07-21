@@ -1,0 +1,14 @@
+name: market-manipulation
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - numpy
+  - scipy
+  - matplotlib
+  - sympy
+  - pandas
+  - scikit-learn
+  - pip
+  - pip:
+      - gambit 
