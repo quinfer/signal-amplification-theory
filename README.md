@@ -34,6 +34,7 @@ The initial verification revealed that standard academic parameters don't reflec
 ### Core Verification Scripts
 
 #### 1. `Complete Signal Amplification Theorem Verification`
+**Script**: `scripts/complete_signal_verification.py`
 **Purpose**: Comprehensive verification of the main theoretical contribution  
 **Features**:
 - Analytical verification of SNR formula and optimal weights
@@ -44,6 +45,7 @@ The initial verification revealed that standard academic parameters don't reflec
 - **Status**: ✅ VERIFIED - Signal amplification confirmed
 
 #### 2. `Signal Amplification Theorem Verification`
+**Script**: `scripts/signal_verification.py`
 **Purpose**: Symbolic mathematical verification  
 **Features**:
 - SymPy-based analytical verification
@@ -54,6 +56,7 @@ The initial verification revealed that standard academic parameters don't reflec
 - **Status**: ✅ VERIFIED - All derivations consistent
 
 #### 3. `Equilibrium and Optimization Verification`
+**Script**: `scripts/equilibrium_verification.py`
 **Purpose**: Game-theoretic equilibrium analysis  
 **Features**:
 - Nash equilibrium computation
@@ -64,7 +67,9 @@ The initial verification revealed that standard academic parameters don't reflec
 - **Status**: ✅ VERIFIED (with corrected parameters)
 
 #### 4. `Monte Carlo Verification of Theoretical Results`
+**Script**: `scripts/monte_carlo_verification.py`
 **Purpose**: Empirical validation through simulation  
+**Note**: This script has not yet been run, as Monte Carlo simulations are intended for a high-level target beyond the current Economic Letters submission.  
 **Features**:
 - Signal amplification with simulated market data
 - Complementarity hypothesis testing
@@ -74,7 +79,9 @@ The initial verification revealed that standard academic parameters don't reflec
 - **Status**: ✅ VERIFIED - Empirical confirmation
 
 #### 5. `Complete Gambit Game Theory Verification`
+**Script**: `scripts/gambit_verification.py`
 **Purpose**: Formal game-theoretic validation  
+**Note**: This script has not yet been run, as the full Game Theory analysis is intended for a high-level target beyond the current Economic Letters submission.  
 **Features**:
 - Gambit integration for exact Nash equilibria
 - Strategic form game creation
@@ -86,6 +93,7 @@ The initial verification revealed that standard academic parameters don't reflec
 ### Diagnostic Tools
 
 #### 6. `Diagnostic Mathematical Verification`
+**Script**: `scripts/diagnostic_verification.py`
 **Purpose**: Identify parameter inconsistencies  
 **Features**:
 - SNR optimization diagnostics
@@ -96,6 +104,7 @@ The initial verification revealed that standard academic parameters don't reflec
 - **Status**: ✅ COMPLETED - Identified parameter issues
 
 #### 7. `Fast Mathematical Verification (Numerical Focus)`
+**Script**: `scripts/fast_verification.py`
 **Purpose**: Quick numerical validation  
 **Features**:
 - Rapid SNR verification
@@ -105,6 +114,7 @@ The initial verification revealed that standard academic parameters don't reflec
 - **Status**: ⚠️ SUPERSEDED by corrected verification
 
 #### 8. `Corrected Parameter Verification`
+**Script**: `scripts/corrected_verification.py`
 **Purpose**: Final verification with realistic parameters  
 **Features**:
 - Interior equilibrium confirmation
@@ -142,20 +152,20 @@ conda install -c conda-forge gambit
 
 ### Quick Verification (Recommended)
 ```bash
-python corrected_verification.py
+python scripts/corrected_verification.py
 ```
 **Expected Output**: All tests pass in ~30 seconds
 
 ### Comprehensive Analysis
 Run scripts in this order:
-1. `corrected_verification.py` (core verification)
-2. `complete_signal_verification.py` (detailed analysis)
-3. `monte_carlo_verification.py` (empirical validation)
-4. `gambit_verification.py` (formal game theory)
+1. `scripts/corrected_verification.py` (core verification)
+2. `scripts/complete_signal_verification.py` (detailed analysis)
+3. `scripts/monte_carlo_verification.py` (empirical validation) *(not yet run; for high-level target)*
+4. `scripts/gambit_verification.py` (formal game theory) *(not yet run; for high-level target)*
 
 ### Troubleshooting
 If you encounter issues:
-1. Run `diagnostic_verification.py` first
+1. Run `scripts/diagnostic_verification.py` first
 2. Check parameter values match corrected version
 3. Ensure all dependencies are installed
 4. Verify Python 3.8+ compatibility
@@ -289,10 +299,4 @@ If using this verification suite, please cite:
   journal={Economics Letters},
   year={2025}
 }
-```
-
----
-
-**Last Updated**: January 2025  
-**Version**: 1.0  
-**Status**: ✅ All verifications complete and validated
+``` 
