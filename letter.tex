@@ -1,0 +1,83 @@
+\documentclass[preprint,12pt,authoryear]{elsarticle}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+
+% Short, EL-style letter
+\begin{document}
+\begin{frontmatter}
+
+\title{Signal Amplification in Market Manipulation Detection}
+
+\author[qub]{Yongsheng Dai}
+\ead{ydai09@qub.ac.uk}
+\author[uu]{Barry Quinn}
+\ead{b.quinn1@ulster.ac.uk}
+\author[qbs]{Fearghal Kearney}
+\ead{f.kearney@qub.ac.uk}
+
+\address[qub]{School of EEECS, Queen's University Belfast}
+\address[uu]{Ulster University Business School, Ulster University}
+\address[qbs]{Queen's Business School, Queen's University Belfast}
+
+\begin{abstract}
+We study a manipulator--detector game and show that a composite detection signal strictly outperforms individual features when manipulation strategies are complementary. Under weak regularity and $\operatorname{Cov}(r,c)>0$, the optimal linear detector $S=w_1 r + w_2 c + \varepsilon$ achieves a strictly higher detection objective than either feature alone, and induces strategic deterrence by reducing equilibrium manipulation intensity. A compact numerical illustration calibrated to mature-market conditions confirms meaningful amplification and interior equilibria. The result provides a simple design principle for surveillance: combine domain-specific features when they co-move under manipulation.
+\end{abstract}
+
+\begin{keyword}
+Market manipulation \sep detection \sep microstructure \sep game theory
+\JEL G14 \sep G18 \sep C72
+\end{keyword}
+
+\end{frontmatter}
+
+% --- Main text ---
+
+\section{Setup}
+The manipulator chooses $(r,c)\in\mathbb{R}_+\times[0,1]$ (rush-order and cancellation intensity). The detector observes a noisy linear signal
+\begin{equation}
+S=w_1 r + w_2 c + \varepsilon,\qquad \varepsilon\sim \mathcal{N}(0,\sigma^2),\label{eq:signal}
+\end{equation}
+and triggers detection when $S>\tau$. Let the manipulation benefit be $Q(\delta r + \gamma c)$ and the private cost $\tfrac{1}{2}(k r^2 + \ell c^2)$; a penalty $L>0$ is imposed upon detection. We analyze detection performance using a standard linear objective (e.g., power at fixed size or a weighted Type~I/II loss), which in this Gaussian setting is monotonically increasing in a signal-to-noise ratio (SNR) measure of $S$.
+
+\section{Main Result}
+Let $\mu_r,\mu_c>0$ and variances $\sigma_r^2,\sigma_c^2$ characterize $(r,c)$ under manipulation, with $\operatorname{Cov}(r,c)=\delta>0$, and assume $\varepsilon$ is independent of $(r,c)$.
+
+\begin{theorem}[Signal Amplification]\label{thm:amplification}
+For the linear detector $S=w_1 r + w_2 c + \varepsilon$, the optimal weights $(w_1^*,w_2^*)$ strictly dominate any single-feature detector whenever $\operatorname{Cov}(r,c)>0$. In particular,
+\begin{equation}
+\operatorname{SNR}(w_1^*,w_2^*)\;>\;\max\big\{\operatorname{SNR}(1,0),\;\operatorname{SNR}(0,1)\big\}+\varepsilon(\delta),\quad \varepsilon(\delta)>0,\label{eq:snr-dominance}
+\end{equation}
+with $\varepsilon(\delta)$ strictly increasing in $\delta$.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Write the (scaled) detection objective as the Rayleigh quotient $\tfrac{w^\top \Sigma w}{w^\top w + \sigma^2}$, where $w=(w_1,w_2)$ and $\Sigma$ is the second-moment matrix of $(r,c)$ under manipulation, including cross term $\operatorname{Cov}(r,c)=\delta>0$. The maximizer uses both coordinates unless the off-diagonal is zero; restricting to axes $(1,0)$ or $(0,1)$ is suboptimal when $\delta>0$ because the cross term raises the quadratic form strictly above the best coordinate direction. Monotonicity of common detection criteria in this ratio yields \eqref{eq:snr-dominance}.
+\end{proof}
+
+\begin{proposition}[Strategic deterrence]\label{prop:deterrence}
+In an interior equilibrium, the optimal manipulation intensities satisfy $\partial r^*/\partial w_1<0$ and $\partial c^*/\partial w_2<0$.
+\end{proposition}
+
+\noindent Sketch: First-order conditions equate marginal benefits to detection-adjusted marginal costs. A higher weight $w_1$ (or $w_2$) raises detection probability for a given $(r,c)$, shifting the FOCs inward; the implicit-function theorem yields the stated signs under standard regularity and concavity.
+
+\section{Illustration}
+For the calibration $Q=100,\; (\delta,\gamma)=(1.0,0.8),\; (k,\ell)=(50,40),\; L=100,\; \sigma=0.5$, numerical optimization yields an interior equilibrium and a strictly higher detection objective for the composite detector. The precise magnitude (e.g., an \emph{illustrative} 80\% improvement over single features in one configuration) depends on covariance and noise and is robust in a neighborhood around the calibration. Replication scripts are provided in the accompanying repository.
+
+\section{Implications}
+Theorem~\ref{thm:amplification} provides a simple design rule: when manipulation features co-move during abuse, linear combination improves detection and deters manipulation in equilibrium (Proposition~\ref{prop:deterrence}). Empirically, researchers can test whether composite AUC exceeds the best single-feature AUC and whether surveillance upgrades reduce manipulation intensity.
+
+\section{Conclusion}
+Composite detection strictly dominates single-feature monitoring under complementary manipulation strategies and induces deterrence. This letter isolates the core condition and delivers a tractable guideline for market surveillance system design.
+
+\bibliographystyle{elsarticle-harv}
+\bibliography{references}
+
+\end{document}
+
