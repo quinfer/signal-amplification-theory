@@ -1,226 +1,83 @@
-\documentclass[12pt]{article}
-\usepackage[utf8]{inputenc}
+\documentclass[preprint,12pt,authoryear]{elsarticle}
+% EL letter main document
 \usepackage[T1]{fontenc}
-\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
 \usepackage{geometry}
-\usepackage{natbib}
-
-% Economics Letters format
 \geometry{a4paper, margin=2.5cm}
-\linespread{1.5}
 
 % Theorem environments
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{lemma}[theorem]{Lemma}
 
-% Custom commands
-\newcommand{\E}{\mathbb{E}}
-\newcommand{\R}{\mathbb{R}}
+% Short, EL-style letter
+\begin{document}
+\begin{frontmatter}
 
 \title{Signal Amplification in Market Manipulation Detection}
 
-\author{Yongsheng Dai\thanks{School of Electronics, Electrical Engineering and Computer Science, Queen's University Belfast. Email: ydai09@qub.ac.uk} \and 
-Barry Quinn\thanks{Ulster University Business School, Ulster University. Email: b.quinn1@ulster.ac.uk} \and 
-Fearghal Kearney\thanks{Queen's Business School, Queen's University Belfast. Email: f.kearney@qub.ac.uk}}
+\author[qub]{Yongsheng Dai}
+\ead{ydai09@qub.ac.uk}
+\author[uu]{Barry Quinn}
+\ead{b.quinn1@ulster.ac.uk}
+\author[qbs]{Fearghal Kearney}
+\ead{f.kearney@qub.ac.uk}
 
-\date{\today}
-
-\begin{document}
-
-\maketitle
+\address[qub]{School of EEECS, Queen's University Belfast}
+\address[uu]{Ulster University Business School, Ulster University}
+\address[qbs]{Queen's Business School, Queen's University Belfast}
 
 \begin{abstract}
-We model strategic interaction between manipulators and detectors using composite signals. A Signal Amplification Theorem proves optimal combination of rush order and cancellation indicators yields superior detection when strategies exhibit complementarity, achieving 80.7\% improvement over individual features under realistic parameters. Enhanced detection creates strategic deterrence, reducing manipulation intensity whilst revealing systematic underinvestment in detection technology.
+We study a manipulator--detector game and show that a composite detection signal strictly outperforms individual features when manipulation strategies are complementary. Under weak regularity and $\operatorname{Cov}(r,c)>0$, the optimal linear detector $S=w_1 r + w_2 c + \varepsilon$ achieves a strictly higher detection objective than either feature alone, and induces strategic deterrence by reducing equilibrium manipulation intensity. A compact numerical illustration calibrated to mature-market conditions confirms meaningful amplification and interior equilibria. The result provides a simple design principle for surveillance: combine domain-specific features when they co-move under manipulation.
 \end{abstract}
 
-\textbf{Keywords:} Market manipulation, detection theory, game theory, financial regulation
+\begin{keyword}
+Market manipulation \sep detection \sep microstructure \sep game theory
+\JEL G14 \sep G18 \sep C72
+\end{keyword}
 
-\textbf{JEL Classification:} G14, G18, C72
+\end{frontmatter}
 
-\section{Introduction}
+% --- Main text ---
 
-This paper establishes conditions under which combining domain-specific detection features creates signal amplification effects in market manipulation detection. We prove that optimal linear combination of rush order and cancellation ratio indicators yields detection capability strictly superior to individual components when manipulation strategies exhibit complementarity.
-
-Market manipulation remains a persistent challenge despite regulatory advances, with recent research highlighting sophisticated concealment strategies that exploit information asymmetries. \citet{liu2024asset} demonstrate how feedback effects mitigate manipulation impact on asset prices, whilst \citet{xiong2024information} show that information infrastructure improvements reduce corporate manipulation intensity. \citet{wang2024information} reveals how majority voting rules affect information manipulation in collective decision-making. These studies focus primarily on manipulator behaviour and market responses rather than optimal detection strategies.
-
-Following \citet{vila1989simple}, we model strategic interaction between manipulators and detectors as a game with asymmetric information. Our approach extends Vila's manipulation framework by introducing a sophisticated detector with composite signal technology. Unlike recent papers examining manipulation's price effects or institutional responses, we analyse the detector's optimisation problem directly.
-
-The Signal Amplification Theorem demonstrates that when manipulation strategies exhibit positive covariance, optimal weights create detection gains exceeding individual features. This theoretical result provides foundations for empirical detection systems whilst revealing strategic deterrence effects that reduce manipulation intensity ex ante. Numerical verification using realistic market parameters confirms these theoretical predictions, with composite detection achieving 80.7\% improvement over individual features and yielding interior equilibrium solutions under appropriate regulatory cost structures. Game-theoretic analysis shows enhanced detection creates welfare benefits beyond simple identification through altered strategic incentives.
-
-We model manipulation along two dimensions derived from market microstructure theory: Rush Orders (rapid sequential transactions creating artificial price movements) and Order Cancellation Ratios (spoofing strategies generating false demand impressions). These strategies reflect current regulatory concerns about algorithmic manipulation and market abuse. Unlike purely empirical approaches, our theoretical analysis quantifies welfare benefits of detection improvements, revealing systematic underinvestment in surveillance technology relative to social optimum. The model generates testable predictions for composite detection systems, connecting theoretical insights with practical surveillance applications.
-
-\section{Model and Equilibrium Analysis}
-
-\subsection{Setup}
-
-Consider a single-period market with a manipulator (M) and detector (D). The manipulator chooses strategy $(r,c) \in \mathbb{R}_+ \times [0,1]$ where $r \geq 0$ represents Rush Order intensity and $c \in [0,1]$ represents Order Cancellation Ratio. These dimensions capture key microstructure-based manipulation strategies: rush orders create artificial price movements through rapid sequential transactions, whilst order cancellation ratios reflect spoofing strategies generating false demand impressions.
-
-The detector observes composite signal $S = \alpha r + \beta c + \varepsilon$ where $\alpha, \beta > 0$ measure detection sensitivity and $\varepsilon \sim N(0,\sigma^2)$ represents market noise. The manipulator's expected profit equals:
+\section{Setup}
+Following \citet{vila1989simple}, the manipulator chooses $(r,c)\in\mathbb{R}_+\times[0,1]$ (rush-order and cancellation intensity). The detector observes a noisy linear signal
 \begin{equation}
-\pi^M(r,c) = (\delta r + \gamma c)Q - \frac{1}{2}(kr^2 + \ell c^2) - L \cdot \Phi\left(\frac{S - \tau}{\sigma}\right)
+S=w_1 r + w_2 c + \varepsilon,\qquad \varepsilon\sim \mathcal{N}(0,\sigma^2),\label{eq:signal}
 \end{equation}
-where $Q$ denotes manipulation quantity, $\delta, \gamma > 0$ represent price impact parameters, $k, \ell > 0$ are quadratic cost parameters, $L > 0$ is the detection penalty, and $\tau$ is the detection threshold. The detector maximises social welfare:
+and triggers detection when $S>\tau$. Let the manipulation benefit be $Q(\delta r + \gamma c)$ and the private cost $\tfrac{1}{2}(k r^2 + \ell c^2)$; a penalty $L>0$ is imposed upon detection. We analyze detection performance using a standard linear objective (e.g., power at fixed size or a weighted Type~I/II loss), which in this Gaussian setting is monotonically increasing in a signal-to-noise ratio (SNR) measure of $S$ \citep{kay1998fundamentals}. Our setting speaks to the manipulation and surveillance literature \citep{aggarwal2006stock,putnins2012market}.
+
+\section{Main Result}
+Let $\mu_r,\mu_c>0$ and variances $\sigma_r^2,\sigma_c^2$ characterize $(r,c)$ under manipulation, with $\operatorname{Cov}(r,c)=\delta>0$, and assume $\varepsilon$ is independent of $(r,c)$.
+
+\begin{theorem}[Signal Amplification]\label{thm:amplification}
+For the linear detector $S=w_1 r + w_2 c + \varepsilon$, the optimal weights $(w_1^*,w_2^*)$ strictly dominate any single-feature detector whenever $\operatorname{Cov}(r,c)>0$. In particular,
 \begin{equation}
-W^D(\tau) = \int_0^{\infty} \int_0^1 \left[H \cdot \Phi\left(\frac{S - \tau}{\sigma}\right) - F \cdot \left(1 - \Phi\left(\frac{S - \tau}{\sigma}\right)\right)\right] f(r,c) \, dr \, dc
+\operatorname{SNR}(w_1^*,w_2^*)\;>\;\max\big\{\operatorname{SNR}(1,0),\;\operatorname{SNR}(0,1)\big\}+\varepsilon(\delta),\quad \varepsilon(\delta)>0,\label{eq:snr-dominance}
 \end{equation}
-where $H > 0$ represents social benefits from successful detection and $F > 0$ represents false alarm costs.
-
-\subsection{Signal Amplification Theorem}
-
-Our main theoretical contribution establishes conditions under which composite detection yields superior performance to individual features.
-
-\begin{theorem}[Signal Amplification]
-When manipulation strategies satisfy $\text{Cov}(r,c) \geq \delta > 0$, optimal linear combination achieves:
-\begin{equation}
-\text{SNR}(\alpha^*, \beta^*) > \max\{\text{SNR}(1,0), \text{SNR}(0,1)\} + \epsilon(\delta)
-\end{equation}
-where $\epsilon(\delta) > 0$ increases with complementarity parameter $\delta$.
+with $\varepsilon(\delta)$ strictly increasing in $\delta$.
 \end{theorem}
 
-\begin{proof}
-Define signal-to-noise ratio as:
-\begin{equation}
-\text{SNR}(w_1, w_2) = \frac{\mathbb{E}[(w_1 r + w_2 c)^2 \mid \text{Manipulation}]}{\mathbb{E}[(w_1 r + w_2 c + \varepsilon)^2 \mid \text{No Manipulation}]}
-\end{equation}
-
-Under manipulation, strategies have means $\mu_r, \mu_c > 0$ and variances $\sigma_r^2, \sigma_c^2$. The optimal weights solve:
-\begin{equation}
-\max_{w_1, w_2} \frac{w_1^2(\sigma_r^2 + \mu_r^2) + w_2^2(\sigma_c^2 + \mu_c^2) + 2w_1 w_2 \text{Cov}(r,c)}{w_1^2 + w_2^2 + 1} \cdot \frac{1}{\sigma^2}
-\end{equation}
-
-The complementarity condition $\text{Cov}(r,c) \geq \delta > 0$ ensures the cross-term $2w_1 w_2 \delta$ enhances the numerator beyond what individual features achieve. Optimal weights yield $\epsilon(\delta) = 2\delta/(\sigma^2 + \text{signal variance}) > 0$.
+\begin{proof}[Proof sketch]
+Write the (scaled) detection objective as the Rayleigh quotient $\tfrac{w^\top \Sigma w}{w^\top w + \sigma^2}$, where $w=(w_1,w_2)$ and $\Sigma$ is the second-moment matrix of $(r,c)$ under manipulation, including cross term $\operatorname{Cov}(r,c)=\delta>0$. The maximizer uses both coordinates unless the off-diagonal is zero; restricting to axes $(1,0)$ or $(0,1)$ is suboptimal when $\delta>0$ because the cross term raises the quadratic form strictly above the best coordinate direction. Monotonicity of common detection criteria in this ratio yields \eqref{eq:snr-dominance}.
 \end{proof}
 
-The theorem demonstrates that when manipulators employ complementary strategies across rush orders and cancellation ratios, optimal detection systems achieve superadditive performance gains through strategic feature combination.
-
-\subsection{Empirical Predictions and Testing Framework}
-
-Our theoretical model generates specific testable predictions suitable for empirical validation using market microstructure data. Following the approach of \citet{liu2024asset}, who calibrate their manipulation model to find quantitative effects, and \citet{xiong2024information}, who employ difference-in-differences methodology to test manipulation responses, we outline three primary empirical tests.
-
-\textbf{Signal Amplification Test:} Detection accuracy should exhibit superadditivity when combining rush order and cancellation features. Using high-frequency trading data, researchers can construct composite detection signals $S_t = \alpha r_t + \beta c_t$ and test whether $\text{AUC}(\alpha^*, \beta^*) > \max\{\text{AUC}(1,0), \text{AUC}(0,1)\}$ where AUC denotes area under the ROC curve. Based on the theoretical structure of our Signal Amplification Theorem, the magnitude of detection improvements depends critically on the covariance parameter $\delta = \text{Cov}(r,c)$. When manipulation strategies exhibit complementarity ($\delta > 0$), composite detection yields $\epsilon(\delta) = 2\delta/(\sigma^2 + \text{signal variance})$ proportional improvement over individual features.
-
-\textbf{Strategic Deterrence Test:} Manipulation intensity should respond negatively to enhanced detection capability. Following \citet{xiong2024information}'s staggered difference-in-differences approach, researchers can exploit exogenous surveillance upgrades to test whether $\partial \text{Manipulation}_t/\partial \text{Detection Technology}_t < 0$. Our theoretical model predicts the elasticity of manipulation response depends on the relative magnitudes of detection penalty $L$, manipulation costs $k, \ell$, and market noise $\sigma$. The first-order condition $\partial r^*/\partial \alpha = -\frac{L}{k\sigma} \phi(\cdot) [1 + \text{strategic interaction terms}]$ provides the theoretical foundation for empirical estimation.
-
-\textbf{Complementarity Test:} The model predicts positive covariance between rush order and cancellation strategies during manipulation episodes. Using machine learning classification on order flow data, researchers can test whether $\text{Cov}(r,c | \text{Manipulation}) > \text{Cov}(r,c | \text{Normal Trading})$. The cross-partial derivative condition $\frac{\partial^2 \pi^M}{\partial r \partial c} > 0$ generates this testable prediction directly from the theoretical mechanism underlying our Signal Amplification Theorem.
-
-The quantitative magnitudes of these effects depend on market-specific parameters that require empirical calibration using actual trading data. Our theoretical framework provides the mathematical structure for estimation whilst empirical studies must determine parameter values appropriate to specific market contexts.
-
-\subsection{Equilibrium Analysis}
-
-The manipulator's first-order conditions yield:
-\begin{align}
-\delta Q - kr^* &= \frac{L\alpha}{\sigma} \phi\left(\frac{\alpha r^* + \beta c^* - \tau}{\sigma}\right) \\
-\gamma Q - \ell c^* &= \frac{L\beta}{\sigma} \phi\left(\frac{\alpha r^* + \beta c^* - \tau}{\sigma}\right)
-\end{align}
-
-The detector optimally sets $\tau^* = \arg\min_\tau [\omega \cdot P(\text{Type I}) + (1-\omega) \cdot P(\text{Type II})]$ where $\omega = F/(F+H)$ weights relative error costs.
-
-\begin{proposition}[Strategic Deterrence]
-Enhanced detection sensitivity reduces equilibrium manipulation: $\partial r^*/\partial \alpha < 0$ and $\partial c^*/\partial \beta < 0$.
+\begin{proposition}[Strategic deterrence]\label{prop:deterrence}
+In an interior equilibrium, the optimal manipulation intensities satisfy $\partial r^*/\partial w_1<0$ and $\partial c^*/\partial w_2<0$.
 \end{proposition}
 
-\subsection{Numerical Verification and Parameter Calibration}
+\noindent Sketch: First-order conditions equate marginal benefits to detection-adjusted marginal costs. A higher weight $w_1$ (or $w_2$) raises detection probability for a given $(r,c)$, shifting the FOCs inward; the implicit-function theorem yields the stated signs under standard regularity and concavity.
 
-To validate our theoretical predictions and demonstrate practical implementability, we conduct numerical verification using realistic market parameters calibrated to reflect mature regulatory environments with sophisticated enforcement capacity.  Table 1 presents the calibrated parameter values used for numerical verification, reflecting a mature regulatory environment with substantial enforcement capacity. With manipulation costs $k=50$, $\ell=40$ representing substantial quadratic penalties for intensive strategies, detection sensitivity parameters $\alpha=1.0$, $\beta=0.8$, and detection penalty $L=100$, numerical optimization yields interior Nash equilibrium at $(r^*, c^*) = (0.67, 0.67)$ as shown in Table 1. This confirms that meaningful manipulation strategies emerge under realistic cost structures, avoiding boundary solutions that would indicate parameter miscalibration.
+\section{Illustration}
+For the calibration $Q=100,\; (\delta,\gamma)=(1.0,0.8),\; (k,\ell)=(50,40),\; L=100,\; \sigma=0.5$, numerical optimization yields an interior equilibrium and a strictly higher detection objective for the composite detector. The precise magnitude (e.g., an \emph{illustrative} 80\% improvement over single features in one configuration) depends on covariance and noise and is robust in a neighborhood around the calibration. Replication scripts are provided in the accompanying repository.
 
-The Signal Amplification Theorem achieves optimal signal-to-noise ratio of 6.71 compared to individual rush order (3.71) and cancellation ratio (1.87) features, representing 80.7\% detection improvement. Optimal composite weights $(w_1^*, w_2^*) = (2.0, 1.6)$ demonstrate that rush order indicators receive higher weighting in optimal detection systems, consistent with their stronger signal characteristics.
-
-First-order equilibrium conditions are satisfied within numerical tolerance $10^{-6}$, validating our analytical derivations. The profit function exhibits appropriate concavity with $\partial^2\pi^M/\partial r^2 = -81.3$ and $\partial^2\pi^M/\partial c^2 = -60.0$, confirming well-behaved optimization problems. Parameter sensitivity analysis demonstrates robustness across alternative cost and detection configurations, with composite detection consistently outperforming individual features when manipulation strategies exhibit positive covariance.
-
-These results confirm practical implementability of our theoretical framework under realistic market conditions representative of major exchanges with advanced surveillance infrastructure and strong regulatory oversight. The parameter values and equilibrium outcomes summarised in Table 1 provide quantitative foundations for regulatory surveillance system design.
-
-\subsection{Welfare Analysis}
-
-Social welfare under manipulation equals:
-\begin{equation}
-SW = (\delta r + \gamma c)Q - \frac{1}{2}(kr^2 + \ell c^2) - D(r,c)
-\end{equation}
-where $D(r,c) = \xi r + \zeta c$ represents social damage with $\xi, \zeta > 0$.
-
-\begin{proposition}[Private vs. Social Detection]
-The privately optimal detection threshold differs systematically from social optimum: $\tau^{SO} \neq \tau^*$, with private detectors typically under-investing in detection capability.
-\end{proposition}
-
-This divergence occurs because private detectors internalise direct costs but not market quality externalities. Private detection benefits $H$ reflect only penalty collection, whilst social benefits include broader market integrity effects. The gap between private and social incentives suggests regulatory intervention may enhance welfare through subsidised detection technology or mandatory surveillance standards.
-
-The model generates testable predictions connecting theory with empirical detection systems: detection accuracy should exhibit superadditivity when features are combined; manipulation intensity should respond negatively to detection improvements; optimal thresholds should minimise weighted error costs reflecting relative social costs of Type I versus Type II errors. These predictions provide foundations for empirical validation of the signal amplification framework.
-
-\subsection{Policy Applications and Regulatory Design}
-
-Our theoretical findings, validated through numerical verification, provide specific guidance for financial regulators designing modern surveillance systems. Following \citet{xiong2024information}'s demonstration that information infrastructure reduces manipulation, and \citet{wang2024information}'s analysis of institutional responses to manipulation, we outline three policy applications informed by our quantitative results.
-
-\textbf{Surveillance System Architecture:} Regulators should prioritise composite detection systems over individual feature monitoring. Our Signal Amplification Theorem, achieving 80.7\% improvement in numerical verification, demonstrates that optimal surveillance combining rush order monitoring with cancellation ratio analysis yields substantial detection improvements proportional to $\epsilon(\delta) = 2\delta/(\sigma^2 + \text{signal variance})$, where $\delta$ represents strategic complementarity. With optimal weights $(w_1^*, w_2^*) = (2.0, 1.6)$, implementation requires integrating order flow analytics with real-time pattern recognition, prioritising rush order detection whilst maintaining cancellation monitoring capabilities.
-
-\textbf{Regulatory Coordination Framework:} The private vs. social detection divergence, confirmed through interior equilibrium analysis at $(r^*, c^*) = (0.67, 0.67)$, necessitates coordinated policy responses. National regulators should consider subsidising detection technology development to bridge the investment gap, whilst international coordination ensures consistent surveillance standards. The moderate manipulation levels observed in equilibrium suggest that appropriate cost structures can maintain market integrity without eliminating all manipulation activity.
-
-\textbf{Dynamic Threshold Calibration:} Optimal detection thresholds should reflect market-specific error costs through the relationship $\tau^* = \arg\min_\tau [\omega \cdot P(\text{Type I}) + (1-\omega) \cdot P(\text{Type II})]$ where $\omega = F/(F+H)$ weights relative social costs. Our numerical verification with $\tau = 1.5$ demonstrates that appropriately calibrated thresholds can achieve meaningful deterrence whilst maintaining market functionality. Regulators should implement adaptive thresholds that automatically adjust based on market volatility and manipulation intensity, following the mechanism design principles demonstrated in our welfare analysis.
-
-\subsection{Quantitative Insights and Calibration}
-
-Numerical verification demonstrates the economic significance of our theoretical results using parameter values calibrated to reflect sophisticated regulatory environments. Following the calibration approach of \citet{liu2024asset}, who find substantial manipulation intensity reduction from enhanced detection, our numerical analysis confirms theoretical predictions across multiple dimensions.
-
-\textbf{Signal Amplification Magnitudes:} The Signal Amplification Theorem yields detection improvements of 80.7\% over individual features, with optimal signal-to-noise ratio reaching 6.71 compared to rush order (3.71) and cancellation ratio (1.87) detection alone. The magnitude of amplification gains depends critically on the complementarity parameter $\delta = \text{Cov}(r,c)$ and the signal-to-noise environment characterised by $\sigma^2$. Our numerical verification confirms $\epsilon(\delta) = 2\delta/(\sigma^2 + \text{signal variance})$ provides accurate predictions for composite detection improvements.
-
-\textbf{Strategic Deterrence Effects:} Enhanced detection technology creates meaningful equilibrium responses, with interior Nash equilibrium at $(r^*, c^*) = (0.67, 0.67)$ representing moderate manipulation strategies under realistic cost structures. The deterrence relationship $\frac{\partial r^*}{\partial \alpha} = -\frac{L}{k\sigma} \phi(\cdot)[1 + \text{strategic interaction terms}]$ operates through substantial cost parameters $(k=50, \ell=40)$ that create meaningful trade-offs between manipulation benefits and detection risks.
-
-\textbf{Welfare Analysis:} The numerical verification confirms that appropriate parameter calibration can achieve interior equilibrium solutions representing realistic market conditions. The moderate manipulation levels observed suggest that sophisticated regulatory frameworks can maintain the balance between market functionality and manipulation deterrence, providing foundations for optimal surveillance system design.
-
-These quantitative results demonstrate that signal amplification effects are economically meaningful under realistic regulatory conditions, confirming theoretical predictions whilst providing concrete guidance for surveillance system implementation.
-
-\subsection{Robustness and Extensions}
-
-Our Signal Amplification Theorem relies on several modelling assumptions that merit discussion. Following the robustness analysis approach in \citet{bo2023optimal} and \citet{liu2024asset}, we examine three key extensions that preserve our main theoretical insights whilst addressing potential limitations.
-
-\textbf{Alternative Manipulation Strategies.} The model focuses on rush orders and cancellation ratios, representing prominent algorithmic manipulation techniques. However, manipulators may employ alternative strategies including quote stuffing, layering, or momentum ignition. Let manipulation strategy space expand to $(r, c, s) \in \mathbb{R}_+ \times [0,1] \times [0,1]$ where $s$ represents spoofing intensity. The composite signal becomes $S = \alpha r + \beta c + \gamma s + \varepsilon$. Under strategy complementarity $\text{Cov}(r,c,s) \geq \delta > 0$, signal amplification extends naturally: optimal weights $(\alpha^*, \beta^*, \gamma^*)$ yield $\text{SNR}(\alpha^*, \beta^*, \gamma^*) > \max\{\text{individual features}\} + \epsilon'(\delta)$ where $\epsilon'(\delta) > \epsilon(\delta)$ due to additional cross-correlation terms. This suggests our framework accommodates expanded manipulation taxonomies without compromising theoretical foundations.
-
-\textbf{Multi-Period Dynamic Learning.} The single-period framework abstracts from learning dynamics between manipulators and detectors. Consider $t$-period extension where manipulator strategy evolves according to $r_{t+1} = \rho r_t + \eta_t$ based on past detection outcomes. The detector updates weights $(\alpha_t, \beta_t)$ using Bayesian learning from observed signals. Following \citet{bo2023optimal}'s dynamic approach, optimal detection policy solves:
-\begin{equation}
-\max_{\{\alpha_t, \beta_t\}} \sum_{t=0}^T \beta^t \E_t[H \cdot P(\text{Detection})_t - F \cdot P(\text{False Alarm})_t]
-\end{equation}
-where $\beta$ represents a discount factor. Signal amplification persists under dynamic learning provided manipulation strategies maintain positive covariance over time. The intuition follows our static analysis: complementarity between detection features creates persistent advantages regardless of strategic adaptation, though optimal weights may shift as manipulators respond to enhanced surveillance.
-
-\textbf{Network Effects and Market Segmentation.} Real markets exhibit interconnections where manipulation in one venue affects others through arbitrage or information spillovers. Consider $N$-market extension where manipulation $(r_i, c_i)$ in market $i$ generates spillover effects in market $j \neq i$. Let cross-market signal be $S_j = \sum_{i} \theta_{ij}(\alpha r_i + \beta c_i) + \varepsilon_j$ where $\theta_{ij} \geq 0$ represents spillover intensity. Network complementarity emerges when $\sum_i \theta_{ij} > 1$, amplifying detection signals through interconnected surveillance systems. This extension suggests coordinated detection across market venues enhances effectiveness beyond individual market monitoring, providing theoretical justification for consolidated surveillance infrastructure observed in practice.
+\section{Implications}
+Theorem~\ref{thm:amplification} provides a simple design rule: when manipulation features co-move during abuse, linear combination improves detection and deters manipulation in equilibrium (Proposition~\ref{prop:deterrence}). Empirically, researchers can test whether composite AUC exceeds the best single-feature AUC and whether surveillance upgrades reduce manipulation intensity, consistent with recent evidence on information infrastructure and manipulation \citep{liu2024asset,xiong2024information,wang2024information}. From a regulatory perspective, the result aligns with global surveillance practice \citep{cumming2008global} and complements theory on manipulation and price impact \citep{huberman2004price}.
 
 \section{Conclusion}
+Composite detection strictly dominates single-feature monitoring under complementary manipulation strategies and induces deterrence. This letter isolates the core condition and delivers a tractable guideline for market surveillance system design.
 
-This paper establishes theoretical foundations for composite manipulation detection, proving that optimal combination of domain-specific features creates signal amplification exceeding individual components when manipulation strategies exhibit complementarity. The Signal Amplification Theorem provides mathematical justification for empirical detection systems whilst revealing strategic deterrence effects that reduce manipulation intensity ex ante.
-
-Game-theoretic analysis demonstrates that enhanced detection creates welfare benefits beyond simple ex post identification through altered strategic incentives. Numerical verification confirms these theoretical predictions, achieving 80.7\% detection improvement and interior equilibrium at moderate manipulation levels $(r^*, c^*) = (0.67, 0.67)$ under realistic regulatory parameters. However, systematic divergence between private and social detection incentives suggests underinvestment in surveillance technology relative to social optimum, with efficiency losses varying according to market-specific parameters.
-
-The model generates quantified predictions connecting theory with empirical detection systems: composite detection achieves substantial improvements over individual features; interior equilibrium solutions demonstrate realistic manipulation responses; optimal detection weights provide concrete implementation guidance for regulatory surveillance architecture. Our theoretical framework, validated through numerical verification, provides both mathematical foundations and practical guidance for modern financial market surveillance systems.
-
-Three extensions merit priority in future research. First, incorporating machine learning adaptability where detection algorithms evolve dynamically against sophisticated manipulation strategies. Second, analysing cross-market manipulation spillovers in interconnected trading venues where manipulation in one market affects others through arbitrage linkages. Third, examining optimal regulatory coordination mechanisms when detection technology exhibits positive externalities across jurisdictions, building on our private vs. social detection divergence findings.
-
-\bibliographystyle{ecta}
+\bibliographystyle{elsarticle-harv}
 \bibliography{references}
-
-\appendix
-\section*{Appendix}
-
-\begin{table}[htbp]
-\centering
-\caption{Numerical Verification Parameters}
-\label{tab:num-verif-params}
-\begin{tabular}{lcc}
-\hline
-Parameter & Symbol & Value \\
-\hline
-Manipulation quantity & $Q$ & 100 \\
-Rush order price impact & $\delta$ & 1.0 \\
-Cancellation price impact & $\gamma$ & 0.8 \\
-Rush order cost & $k$ & 50.0 \\
-Cancellation cost & $\ell$ & 40.0 \\
-Detection penalty & $L$ & 100 \\
-Rush order sensitivity & $\alpha$ & 1.0 \\
-Cancellation sensitivity & $\beta$ & 0.8 \\
-Detection threshold & $\tau$ & 1.5 \\
-Market noise & $\sigma$ & 0.5 \\
-\hline
-\multicolumn{3}{l}{\footnotesize Equilibrium: $(r^*, c^*) = (0.67, 0.67)$} \\
-\multicolumn{3}{l}{\footnotesize Signal amplification: 80.7\% improvement} \\
-\hline
-\end{tabular}
-\end{table}
 
 \end{document}
