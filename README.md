@@ -170,7 +170,7 @@ python scripts/mc_fast_roc.py --n-pos 500000 --n-neg 500000 --rho 0.3 --w1 1.0 -
   --bootstrap 0 --fpr 0.05 --out results/mc_summary.json --plot results/roc.png
 ```
 Notes:
-- Computes AUC for `r`, `c`, and the composite score, amplification, and TPR at a fixed FPR.
+- Computes ROC AUC and PR AUC for `r`, `c`, and the composite score; reports amplification and TPR at a fixed FPR.
 - Vectorized with NumPy; optional ROC figure saved if `--plot` is provided.
 - Use `--bootstrap N` (e.g., 200) to add 95% CI for AUCs.
 
@@ -183,7 +183,15 @@ python scripts/run_mc_grid.py --out-dir results/grid --plots -j 8 \
   --sizes 200000 500000 \
   --bootstrap-small 100 --bootstrap-large 0
 ```
-Outputs JSON per run and a CSV summary at `results/grid/grid_summary.csv`.
+Outputs JSON per run and a CSV summary at `results/grid/grid_summary.csv` (includes ROC AUC and PR AUC). For rare-event realism, see the publication runner below.
+
+### Publication-grade Runner (with Imbalance)
+Run a comprehensive grid with multiple seeds, bootstrap CIs (on smaller runs), class-imbalance stress tests, extra 1% FPR operating point, and mis-specified weights:
+```bash
+bash scripts/run_publication_grid.sh
+```
+Environment variables to tweak:
+- `JOBS` (default 8), `OUT_ROOT` (default results/pub_grid), `PY` (python executable), `OPENBLAS_NUM_THREADS`, `OMP_NUM_THREADS`.
 
 ### Troubleshooting
 If you encounter issues:

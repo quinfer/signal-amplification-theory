@@ -52,6 +52,25 @@ def _tpr_at_fpr(y_true: np.ndarray, y_score: np.ndarray, fpr_target: float) -> f
     return float(tpr)
 
 
+def _auprc(y_true: np.ndarray, y_score: np.ndarray) -> float:
+    """Compute Average Precision (area under PR curve) efficiently.
+
+    Uses the identity AP = mean of precision at all ranks where a positive is found.
+    Scores are sorted descending; ties handled stably via mergesort in argsort.
+    """
+    y_true = y_true.astype(np.int8)
+    n_pos = int(y_true.sum())
+    if n_pos == 0:
+        return 0.0
+    order = np.argsort(-y_score, kind="mergesort")
+    y_sorted = y_true[order]
+    cum_tp = np.cumsum(y_sorted, dtype=np.int64)
+    ranks = np.arange(1, y_sorted.size + 1, dtype=np.int64)
+    precision = cum_tp / ranks
+    ap = precision[y_sorted == 1].sum(dtype=np.float64) / max(1, n_pos)
+    return float(ap)
+
+
 @dataclass
 class MCConfig:
     n_pos: int = 500_000
@@ -161,6 +180,9 @@ def main():
     auc_r = _fast_auc(y, s_r)
     auc_c = _fast_auc(y, s_c)
     auc_comp = _fast_auc(y, s_comp)
+    auprc_r = _auprc(y, s_r)
+    auprc_c = _auprc(y, s_c)
+    auprc_comp = _auprc(y, s_comp)
     max_ind = max(auc_r, auc_c)
     amp = auc_comp - max_ind
     tpr_at_fpr = _tpr_at_fpr(y, s_comp, cfg.fpr_target)
@@ -172,6 +194,9 @@ def main():
         "auc_r": auc_r,
         "auc_c": auc_c,
         "auc_comp": auc_comp,
+        "auprc_r": auprc_r,
+        "auprc_c": auprc_c,
+        "auprc_comp": auprc_comp,
         "amplification": amp,
         "tpr_at_fpr": {str(cfg.fpr_target): tpr_at_fpr},
         "timing_sec": {"generate": t_gen - t0, "metrics": t_auc - t_gen, "total": t_auc - t0},
@@ -223,6 +248,7 @@ def main():
     print("=== Monte Carlo Summary ===")
     print(f"Samples: pos={cfg.n_pos:,}, neg={cfg.n_neg:,} | total={cfg.n_pos + cfg.n_neg:,}")
     print(f"AUC r={auc_r:.4f} | c={auc_c:.4f} | comp={auc_comp:.4f} | amplification={amp:.4f}")
+    print(f"PR AUC r={auprc_r:.4f} | c={auprc_c:.4f} | comp={auprc_comp:.4f}")
     print(f"TPR at FPR={cfg.fpr_target:.3f}: {tpr_at_fpr:.4f}")
     if cfg.bootstrap and cfg.bootstrap > 0:
         ci = out["auc_ci95"]
@@ -232,4 +258,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

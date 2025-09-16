@@ -75,6 +75,9 @@ def write_summary(out_dir: str) -> str:
                 "auc_r": data.get("auc_r"),
                 "auc_c": data.get("auc_c"),
                 "auc_comp": data.get("auc_comp"),
+                "auprc_r": data.get("auprc_r"),
+                "auprc_c": data.get("auprc_c"),
+                "auprc_comp": data.get("auprc_comp"),
                 "amplification": data.get("amplification"),
                 "fpr": fpr_key,
                 "tpr": tpr_map.get(fpr_key) if fpr_key is not None else None,
@@ -132,4 +135,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
