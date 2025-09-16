@@ -163,6 +163,17 @@ Run scripts in this order:
 3. `scripts/monte_carlo_verification.py` (empirical validation) *(not yet run; for high-level target)*
 4. `scripts/gambit_verification.py` (formal game theory) *(not yet run; for high-level target)*
 
+### High-Performance Monte Carlo (Apple Silicon)
+For a fast, vectorized ROC/AUC simulation tuned for Apple Silicon, use:
+```bash
+python scripts/mc_fast_roc.py --n-pos 500000 --n-neg 500000 --rho 0.3 --w1 1.0 --w2 0.8 --sigma-eps 0.5 \
+  --bootstrap 0 --fpr 0.05 --out results/mc_summary.json --plot results/roc.png
+```
+Notes:
+- Computes AUC for `r`, `c`, and the composite score, amplification, and TPR at a fixed FPR.
+- Vectorized with NumPy; optional ROC figure saved if `--plot` is provided.
+- Use `--bootstrap N` (e.g., 200) to add 95% CI for AUCs.
+
 ### Troubleshooting
 If you encounter issues:
 1. Run `scripts/diagnostic_verification.py` first
