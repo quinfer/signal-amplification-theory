@@ -110,5 +110,19 @@ Market noise & $\\sigma$ & 0.5 \\\\
 \\end{tabular}
 \\end{table}
 
-\\end{document}
+% --- QF expansion hooks (sensitivity table + figure) ---
+\\section{Monte Carlo Sensitivity (Balanced)}
+We report amplification (AUC$_{comp}$ $-$ max AUC$_{single}$) across covariance $\\rho$ and noise $\\sigma$, averaged over seeds, using balanced classes (size=200k per class). See Table~\\ref{tab:qf-amp-by-rho} and Figure~\\ref{fig:amp-vs-rho}.
 
+% Auto-generated table (run scripts/make_qf_tables.py)
+\\input{tables/qf_amplification_by_rho.tex}
+
+% Sensitivity plot (run scripts/plot_amp_vs_rho.py)
+\\begin{figure}[htbp]
+  \\centering
+  \\includegraphics[width=0.75\\linewidth]{figures/amp_vs_rho.pdf}
+  \\caption{Amplification vs $\\rho$ for $\\sigma \\in \\{0.3,0.5,0.7\\}$ (mean across seeds; shaded bands: $\\pm$1 sd).}
+  \\label{fig:amp-vs-rho}
+\\end{figure}
+
+\\end{document}
