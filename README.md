@@ -174,6 +174,17 @@ Notes:
 - Vectorized with NumPy; optional ROC figure saved if `--plot` is provided.
 - Use `--bootstrap N` (e.g., 200) to add 95% CI for AUCs.
 
+### Parameter Grid Runner (Parallel)
+Run a grid over correlation (rho), noise (sigma_eps), and sample sizes in parallel:
+```bash
+python scripts/run_mc_grid.py --out-dir results/grid --plots -j 8 \
+  --rhos -0.1 0.0 0.1 0.2 0.3 0.4 \
+  --sigmas 0.3 0.5 0.7 \
+  --sizes 200000 500000 \
+  --bootstrap-small 100 --bootstrap-large 0
+```
+Outputs JSON per run and a CSV summary at `results/grid/grid_summary.csv`.
+
 ### Troubleshooting
 If you encounter issues:
 1. Run `scripts/diagnostic_verification.py` first
