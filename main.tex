@@ -79,7 +79,7 @@ Theorem~\ref{thm:amplification} provides a simple design rule: when manipulation
 \section{Conclusion}
 Composite detection strictly dominates single-feature monitoring under complementary manipulation strategies and induces deterrence. This letter isolates the core condition and delivers a tractable guideline for market surveillance system design.
 
-\paragraph{Code availability.} Replication scripts for the numerical illustration and robustness checks are provided in the repository (see `scripts/mc_fast_roc.py` and `scripts/run_publication_grid.sh`).
+\paragraph{Code availability.} Replication scripts for the numerical illustration and robustness checks are provided in the repository (https://github/quinfer/signal-amplification-thoery).
 
 \section*{Online Appendix (brief)}
 We report an illustrative summary under realistic class imbalance, using one million observations. The composite detector preserves large ROC gains and exhibits materially higher precision in rare-event settings.
@@ -88,9 +88,10 @@ We report an illustrative summary under realistic class imbalance, using one mil
 \centering
 \caption{Composite vs best single feature under imbalance (illustrative)}
 \label{tab:appendix-imbalance}
-\begin{tabular}{lcccc}
+\small
+\begin{tabular}{l@{\hspace{0.5em}}c@{\hspace{0.5em}}c@{\hspace{0.5em}}c@{\hspace{0.5em}}c}
 \hline
- & ROC AUC (comp) & ROC AUC (best single) & PR AUC (comp) & TPR@5\% FPR (comp) \\
+ & \begin{tabular}{c}ROC AUC\\(comp)\end{tabular} & \begin{tabular}{c}ROC AUC\\(best single)\end{tabular} & \begin{tabular}{c}PR AUC\\(comp)\end{tabular} & \begin{tabular}{c}TPR@5\% FPR\\(comp)\end{tabular} \\
 \hline
 Base rate 10\% & 0.9832 & 0.9478 & 0.9426 & 0.9318 \\
 Base rate 2\%  & 0.9831 & 0.9472 & 0.8800 & 0.9335 \\
