@@ -1,3 +1,7 @@
 # Simulation artifacts (keep untracked)
 results/
 
+.vscode/
+review/
+*_SUMMARY.md
+FINAL_VERSION_README.md
