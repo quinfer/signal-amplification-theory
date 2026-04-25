@@ -1,5 +1,10 @@
-# Simulation artifacts (keep untracked)
-results/
+# Simulation artifacts (keep untracked at repo root only)
+/results/
+
+# Keep LaTeX table inputs required by main_qf.tex
+!qf/results/
+!qf/results/horserace_tab.tex
+!qf/results/robustness_tab.tex
 
 .vscode/
 review/

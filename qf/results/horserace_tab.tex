@@ -1,0 +1,18 @@
+\begin{tabular}{lrrr}
+\toprule
+Rule & ROC AUC & PR AUC & TPR@5\%FPR \\
+\midrule
+range\_bps & 0.6259 & 0.0755 & 0.1146 \\
+realised\_vol\_bps & 0.6223 & 0.0788 & 0.1442 \\
+rel\_spread\_std & 0.6146 & 0.0660 & 0.0980 \\
+\addlinespace[2pt]
+equal (sign(mu)) & 0.6354 & 0.0818 & 0.1405 \\
+expert (1,0.8,...) & 0.6356 & 0.0821 & 0.1423 \\
+\addlinespace[2pt]
+Fisher w* & 0.6752 & 0.1010 & 0.1682 \\
+\addlinespace[2pt]
+logistic & 0.6752 & 0.1004 & 0.1682 \\
+random forest & 0.7593 & 0.1547 & 0.2643 \\
+xgboost & 0.7451 & 0.1490 & 0.2532 \\
+\bottomrule
+\end{tabular}
