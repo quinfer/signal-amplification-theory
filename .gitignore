@@ -5,3 +5,17 @@ results/
 review/
 *_SUMMARY.md
 FINAL_VERSION_README.md
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+# Python cache
+__pycache__/
+*.pyc
+# Local Overleaf sync mirror
+overleaf-sync/
