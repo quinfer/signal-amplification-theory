@@ -10,6 +10,27 @@
 review/
 *_SUMMARY.md
 FINAL_VERSION_README.md
+# Non-manuscript research/workflow material
+BJM_RAG_prompts/
+ai-chats/
+docs/
+scripts/
+figures/
+latex_diff_toolkit/
+tables/
+pdf_notes_toolkit.zip
+PROGRESS.md
+QF_PLAN.md
+2026-05-02_credibility_SignalAmplification.md
+BJM_SI_CFP_full_bibliography_links_with_names.csv
+main.tex
+main.pdf
+paper_full.tex
+references.bib
+refs.bib
+build_pdf.sh
+.Rhistory
+.DS_Store
 # LaTeX build artifacts
 *.aux
 *.bbl
