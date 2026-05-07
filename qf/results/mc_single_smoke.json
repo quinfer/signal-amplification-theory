@@ -1,0 +1,36 @@
+{
+  "config": {
+    "n_pos": 200000,
+    "n_neg": 200000,
+    "mu_r": 1.5,
+    "mu_c": 1.0,
+    "sigma_r0": 0.6,
+    "sigma_c0": 0.4,
+    "sigma_r1": 0.6,
+    "sigma_c1": 0.4,
+    "rho0": 0.0,
+    "rho1": 0.3,
+    "sigma_eps": 0.0,
+    "fixed_w": [
+      1.0,
+      0.8
+    ],
+    "fpr_target": 0.05,
+    "seed": 42
+  },
+  "d2_fisher": 12.5,
+  "d2_best_single": 6.25,
+  "amplification_analytical": 6.25,
+  "w_opt": [
+    4.166666666666667,
+    6.249999999999999
+  ],
+  "auc_r": 0.961786758375,
+  "auc_c": 0.961159707525,
+  "auc_opt": 0.9900910903,
+  "auc_fix": 0.9879901429,
+  "amp_opt": 0.028304331924999926,
+  "amp_fix": 0.02620338452499993,
+  "tpr_at_fpr_opt": 0.95135,
+  "tpr_at_fpr_fix": 0.939985
+}
